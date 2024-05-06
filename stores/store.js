@@ -16,7 +16,7 @@ export const useAuthStore = defineStore({
             const response = await fetch('https://mas-pos.appmedia.id/api/v1/login', {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                 email: this.email,
@@ -30,8 +30,9 @@ export const useAuthStore = defineStore({
                 console.log('Login data:', data);
 
                 this.isLoggedIn = true;
-                this.token = data.token;
+                this.token = data.data.token;
                 router.push('/product');
+
             } else {
                 console.error('Login failed');
                 alert('Login failed');
@@ -40,12 +41,15 @@ export const useAuthStore = defineStore({
             console.error('An error occurred:', error);
             }
         },
+        
         async fetchProducts() {
             try {
+            console.log('Token:', this.token);
+
             const response = await fetch('https://mas-pos.appmedia.id/api/v1/product', {
                 method: 'GET',
                 headers: {
-                Authorization: `Bearer ${this.token}`,
+                    Authorization: `Bearer ${this.token}`,
                 },
             });
     
@@ -55,8 +59,10 @@ export const useAuthStore = defineStore({
 
             } else {
                 console.error('Failed to fetch products token tidak didapat');
+                console.log('Token:', this.token);
             }
             } catch (error) {
+
             console.error('An error occurred while fetching products:', error);
             }
         },

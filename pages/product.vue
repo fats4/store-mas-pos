@@ -10,7 +10,6 @@ import { useAuthStore } from '~/stores/store';
 
 const auth = useAuthStore();
 
-
 onMounted(() => {
     auth.fetchProducts();
 });

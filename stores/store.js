@@ -54,7 +54,7 @@ export const useAuthStore = defineStore({
                 console.log('Products:', products);
 
             } else {
-                console.error('Failed to fetch products');
+                console.error('Failed to fetch products token tidak didapat');
             }
             } catch (error) {
             console.error('An error occurred while fetching products:', error);

@@ -43,6 +43,15 @@ export const useAuthStore = defineStore({
             }
         },
 
+        async logout() {
+            sessionStorage.removeItem('loginData');
+            this.isLoggedIn = false;
+            this.token = '';
+            this.email = '';
+            this.password = '';
+            console.log(this.token)
+        },
+
         async fetchProducts() {
             try {
                 console.log('Token:', this.token);

@@ -8,6 +8,7 @@ export const useAuthStore = defineStore({
         isLoggedIn: false,
         token: '',
         list: [],
+        profile: [],
     }),
     actions: {
         async login() {
@@ -32,7 +33,7 @@ export const useAuthStore = defineStore({
 
                     this.isLoggedIn = true;
                     this.token = data.data.token;
-                    router.push('/product');
+                    router.push('/');
 
                 } else {
                     console.error('Login failed');
@@ -77,6 +78,34 @@ export const useAuthStore = defineStore({
                 }
             } catch (error) {
                 console.error('An error occurred while fetching products:', error);
+            }
+        },
+
+        async fetchProfile() {
+            try {
+                const response = await fetch('https://mas-pos.appmedia.id/api/v1/profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                    body: JSON.stringify({
+                        // Add any request body parameters here
+                    }),
+                });
+
+                if (response.ok) {
+                    const profile = await response.json();
+                    // Store the fetched profile in the state
+                    this.profile = profile; // Assuming you have a 'profile' property in the state
+                    console.log(profile);
+                } else {
+                    console.error('Failed to fetch profile');
+                    console.log('Token:', this.token);
+                    alert('Failed to fetch profile');
+                }
+            } catch (error) {
+                console.error('An error occurred while fetching profile:', error);
             }
         },
     },

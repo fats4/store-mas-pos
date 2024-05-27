@@ -5,7 +5,9 @@
             <div class="flex gap-3">
                 <button @click="logout" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Logout</button>
                 <button @click="goToProfile" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Profile</button>
-                <button @click="toggleCart" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">Cart</button>
+                <button @click="toggleCart" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                    Cart ({{ cartItems.length }})
+                </button>
             </div>
         </nav>
         <div class="flex flex-row flex-wrap gap-4 items-center justify-center mt-16">
@@ -83,25 +85,6 @@ const addToCart = (product) => {
     } else {
         cartItems.value.push({ ...product, quantity: 1 });
     }
-};
-
-const decreaseQuantity = (product) => {
-    const existingItem = cartItems.value.find(item => item.id === product.id);
-    if (existingItem && existingItem.quantity > 1) {
-        existingItem.quantity--;
-    }
-};
-
-const increaseQuantity = (product) => {
-    const existingItem = cartItems.value.find(item => item.id === product.id);
-    if (existingItem) {
-        existingItem.quantity++;
-    }
-};
-
-const getProductQuantity = (product) => {
-    const existingItem = cartItems.value.find(item => item.id === product.id);
-    return existingItem ? existingItem.quantity : 0;
 };
 
 const decreaseCartItemQuantity = (item) => {

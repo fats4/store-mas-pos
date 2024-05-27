@@ -95,10 +95,10 @@ export const useAuthStore = defineStore({
                 });
 
                 if (response.ok) {
-                    const profile = await response.json();
+                    const profiled = await response.json();
                     // Store the fetched profile in the state
-                    this.profile = profile; // Assuming you have a 'profile' property in the state
-                    console.log(profile);
+                    this.profile = profiled.data; // Assuming you have a 'profile' property in the state
+                    console.log(profiled);
                 } else {
                     console.error('Failed to fetch profile');
                     console.log('Token:', this.token);

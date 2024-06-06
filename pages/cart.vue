@@ -16,6 +16,9 @@
             </li>
         </ul>
         <p class="text-lg font-bold mt-4">Total Harga: Rp {{ calculateTotalPrice() }}</p>
+
+        <button @click="goToHome"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Home</button>
     </div>
 </template>
 
@@ -23,6 +26,7 @@
 import { useAuthStore } from '~/stores/store';
 
 const auth = useAuthStore();
+const router = useRouter();
 
 const cartItems = ref([]);
 
@@ -44,5 +48,9 @@ const calculateTotalPrice = () => {
         totalPrice += item.price * item.quantity;
     });
     return totalPrice;
+};
+
+const goToHome = () => {
+    router.push('/');
 };
 </script>

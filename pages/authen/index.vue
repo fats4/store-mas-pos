@@ -1,18 +1,30 @@
 <template>
-    <div class="flex justify-center items-center h-screen">
-        <div class="w-1/3">
-            <h1 class="text-2xl font-bold mb-4">Login</h1>
-            <form @submit.prevent="auth.login">
-            <div class="mb-4">
-                <label for="email" class="block mb-2">Email</label>
-                <input type="email" id="email" v-model="auth.email" class="w-full px-4 py-2 border rounded" required>
+    <div class="flex h-screen">
+        <!-- Left Side with Background Image -->
+        <div class="flex w-screen">
+            <img src="/assets/logimg.jpeg" alt="">
+        </div>
+
+        <!-- Right Side with Login Form -->
+        <div class="w-screen flex flex-col justify-center items-center bg-white">
+            <div class="w-2/3 max-w-md">
+                <h1 class="text-3xl font-semibold mb-6 text-center">Login</h1>
+                <form @submit.prevent="auth.login" class="space-y-4">
+                    <div>
+                        <label for="email" class="block text-gray-700">Masukan Email</label>
+                        <input type="email" id="email" v-model="auth.email" placeholder="username/email"
+                            class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-gray-700">Masukan Password</label>
+                        <input type="password" id="password" v-model="auth.password" placeholder="Password"
+                            class="w-full px-4 py-2 border rounded" required>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-600">Login</button>
+                </form>
+
             </div>
-            <div class="mb-4">
-                <label for="password" class="block mb-2">Password</label>
-                <input type="password" id="password" v-model="auth.password" class="w-full px-4 py-2 border rounded" required>
-            </div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
-            </form>
         </div>
     </div>
 </template>
@@ -22,3 +34,13 @@ import { useAuthStore } from '~/stores/store';
 
 const auth = useAuthStore();
 </script>
+
+<style scoped>
+.bg-cover {
+    background-size: cover;
+}
+
+.bg-center {
+    background-position: center;
+}
+</style>

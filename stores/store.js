@@ -11,6 +11,7 @@ export const useAuthStore = defineStore({
         profile: [],
         cartItems: [],
         selectedProduct: null,
+        categories: [],
     }),
     actions: {
         async login() {
@@ -240,6 +241,26 @@ export const useAuthStore = defineStore({
             } catch (error) {
                 console.error('An error occurred while adding product:', error);
                 return false;
+            }
+        },
+
+        async fetchCategories() {
+            try {
+                const response = await fetch('https://mas-pos.appmedia.id/api/v1/category', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    const categories = await response.json();
+                    this.categories = categories.data;
+                } else {
+                    console.error('Failed to fetch categories');
+                }
+            } catch (error) {
+                console.error('An error occurred while fetching categories:', error);
             }
         },
 

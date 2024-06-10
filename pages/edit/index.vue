@@ -1,12 +1,14 @@
 <template>
     <div class="container mx-auto py-8 px-6">
         <h1 class="text-2xl font-bold mb-4">Daftar Produk</h1>
-        <button @click="addProd" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">add
-            product</button>
-        <button @click="categ" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">category
-            product</button>
-        <button @click="goToHome"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Home</button>
+        <div class="flex justify-between">
+            <button @click="addProd" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">add
+                product</button>
+            <button @click="categ" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">category
+                product</button>
+            <button @click="goToHome"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Home</button>
+        </div>
         <div v-if="authStore.list && authStore.list.length"
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div v-for="product in authStore.list" :key="product.id" class="bg-white shadow-md rounded-lg p-4">

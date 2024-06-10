@@ -27,11 +27,15 @@
                 <div class="mb-4">
                     <img :src="selectedProduct.picture_url" alt="Product Image" class="w-40 h-40 object-cover" />
                 </div>
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Update Produk</button>
 
-                <button @click="goBack"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Home</button>
+                <div class="flex justify-between">
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Update
+                        Produk</button>
+
+                    <button @click="goBack"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Back</button>
+                </div>
             </form>
         </div>
         <div v-else>

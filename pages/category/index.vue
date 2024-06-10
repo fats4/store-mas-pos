@@ -6,10 +6,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div v-for="category in catgStore.categories" :key="category.id" class="bg-white shadow-md rounded-lg p-4">
                 <h2 class="text-lg font-bold mb-2">{{ category.name }}</h2>
-                <button @click="editCategory(category.id)"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Edit</button>
-                <button @click="deleteCategory(category.id)"
-                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
+                <div class="flex justify-between">
+                    <button @click="editCategory(category.id)"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Edit</button>
+                    <button @click="deleteCategory(category.id)"
+                        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
+                </div>
             </div>
         </div>
     </div>

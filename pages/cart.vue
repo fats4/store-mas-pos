@@ -16,11 +16,12 @@
             </li>
         </ul>
         <p class="text-lg font-bold mt-4">Total Harga: Rp {{ calculateTotalPrice() }}</p>
-
-        <button @click="openPaymentModal"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Bayar</button>
-        <button @click="goToHome"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Home</button>
+        <div class="flex justify-between">
+            <button @click="openPaymentModal"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Bayar</button>
+            <button @click="goToHome"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Back</button>
+        </div>
 
         <!-- Modal Pembayaran -->
         <div v-if="isPaymentModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">

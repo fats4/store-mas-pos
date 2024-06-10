@@ -1,15 +1,21 @@
 <template>
     <div class="container mx-auto py-8 px-6">
         <nav class="fixed top-0 left-0 right-0 flex item-center justify-between mb-12 bg-white shadow-md py-3 px-24">
-            <h1 class="text-2xl font-bold">Products</h1>
+            <img src="/assets/logo.jpeg" @click="goHome" alt="Logo" class="w-12 h-12 rounded-full cursor-pointer">
+
             <div class="flex gap-3">
                 <button @click="logout"
                     class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Logout</button>
+
                 <button @click="goToProfile"
                     class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Profile</button>
+
+                <button @click="goToEdit"
+                    class="bg-green-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Edit</button>
+
                 <div class="relative inline-block">
                     <button @click="toggleCart"
-                        class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded flex">
                         Cart ({{ auth.cartItems.length }})
                     </button>
                     <div v-if="showCart" class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-max">
@@ -87,12 +93,20 @@ const logout = () => {
     router.push('/authen/');
 };
 
+const goHome = () => {
+    router.push('/');
+};
+
 const goToProfile = () => {
     router.push('/user');
 };
 
 const goToCart = () => {
     router.push('/cart');
+};
+
+const goToEdit = () => {
+    router.push('/edit/');
 };
 
 const addToCart = (product) => {

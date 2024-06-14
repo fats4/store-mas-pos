@@ -39,14 +39,16 @@
                                             class="w-10 h-10 object-cover mr-2">
                                         <div class="flex flex-col">
                                             <span class="font-bold">{{ item.name }}</span>
-                                            <span class="text-gray-500">Harga: Rp {{ calculateItemPrice(item) }}</span>
+                                            <span class="text-gray-500">Harga: {{
+                                                formatRupiah(calculateItemPrice(item)) }}</span>
                                         </div>
                                         <div class="flex items-center ml-auto">
-                                            <span class="mx-2">{{ getCartItemQuantity(item) }}</span>
+                                            <span class="mx-2">x{{ getCartItemQuantity(item) }}</span>
                                         </div>
                                     </div>
                                 </li>
-                                <p class="text-lg font-bold mt-4">Total Harga: Rp {{ calculateTotalPrice() }}</p>
+                                <p class="text-lg font-bold mt-4">Total Harga: {{ formatRupiah(calculateTotalPrice())
+                                    }}</p>
                                 <div class="flex mt-4 mb-3 justify-between">
                                     <button @click="toggleCart"
                                         class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Close</button>
@@ -68,7 +70,7 @@
                         class="w-full h-40 object-cover mb-4 cursor-pointer" @click="showProductDetails(product)">
                     <h2 class="text-lg font-bold mb-2">{{ product.name }}</h2>
                     <p class="text-gray-500 mb-2">Nama: {{ product.name }}</p>
-                    <p class="text-gray-500 mb-2">Harga: Rp {{ product.price }}</p>
+                    <p class="text-gray-500 mb-2">Harga: {{ formatRupiah(product.price) }}</p>
                     <button @click="addToCart(product)"
                         class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Add</button>
                 </div>
@@ -78,7 +80,7 @@
                     <h2 class="text-lg font-bold mb-4">{{ selectedProduct.name }}</h2>
                     <img :src="selectedProduct.picture_url" alt="Product Image" class="w-full h-40 object-cover mb-4">
                     <p class="text-gray-500 mb-2">Nama: {{ selectedProduct.name }}</p>
-                    <p class="text-gray-500 mb-2">Harga: Rp {{ selectedProduct.price }}</p>
+                    <p class="text-gray-500 mb-2">Harga: Rp {{ formatRupiah(selectedProduct.price) }}</p>
                     <div class="flex flex-1 justify-between">
                         <button @click="addToCart(selectedProduct)"
                             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Add</button>
@@ -92,9 +94,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/store';
+import { formatRupiah } from '~/utils/formatRp';
+
 
 const auth = useAuthStore();
 const router = useRouter();

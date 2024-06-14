@@ -126,6 +126,24 @@ export const useAuthStore = defineStore({
             return this.cartItems;
         },
 
+        increaseCartItemQuantity(product) {
+            const item = this.cartItems.find(i => i.id === product.id);
+            if (item) {
+                item.quantity++;
+            }
+        },
+        decreaseCartItemQuantity(product) {
+            const item = this.cartItems.find(i => i.id === product.id);
+            if (item && item.quantity > 1) {
+                item.quantity--;
+            } else if (item && item.quantity === 1) {
+                this.removeCartItem(product);
+            }
+        },
+        removeCartItem(product) {
+            this.cartItems = this.cartItems.filter(i => i.id !== product.id);
+        },
+
         async fetchProduct(productId) {
             try {
                 const response = await fetch(`https://mas-pos.appmedia.id/api/v1/product/${productId}`, {

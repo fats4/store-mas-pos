@@ -128,6 +128,10 @@ const goToCart = () => {
     router.push('/cart');
 };
 
+const goFbase = () => {
+    router.push('/firebs/');
+};
+
 const goToEdit = () => {
     router.push('/edit/');
 };

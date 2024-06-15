@@ -61,12 +61,35 @@
                     class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2">Tutup</button>
             </div>
         </div>
+
+        <!-- Status Pesanan -->
+        <div class="mt-8">
+            <h2 class="text-xl font-bold mb-4">Status Pesanan</h2>
+            <ul>
+                <li v-for="(order, index) in orders" :key="index" class="mb-2">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span>Order ID: {{ order.id }}</span>
+                            <span>Status: {{ order.status }}</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button @click="updateOrderStatus(order.id, 'Disajikan')"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">Sajikan</button>
+                            <button @click="updateOrderStatus(order.id, 'Belum Disajikan')"
+                                class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-2 rounded">Belum</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/store';
 import { formatRupiah } from '~/utils/formatRp';
+import { database, dbRef, push, set, onValue, update } from '~/utils/firebase';
 
 const auth = useAuthStore();
 const router = useRouter();
@@ -74,10 +97,24 @@ const router = useRouter();
 const cartItems = ref([]);
 const isPaymentModalOpen = ref(false);
 const isReceiptVisible = ref(false);
+const orders = ref([]);
 
 onMounted(() => {
     cartItems.value = auth.getCartItems();
+    fetchOrders();
 });
+
+const fetchOrders = () => {
+    const ordersRef = dbRef(database, 'orders');
+    onValue(ordersRef, (snapshot) => {
+        orders.value = [];
+        snapshot.forEach((childSnapshot) => {
+            const order = childSnapshot.val();
+            order.id = childSnapshot.key;
+            orders.value.push(order);
+        });
+    });
+};
 
 const getCartItemQuantity = (item) => {
     return item.quantity;
@@ -107,9 +144,10 @@ const closePaymentModal = () => {
     isPaymentModalOpen.value = false;
 };
 
-const confirmPayment = () => {
+const confirmPayment = async () => {
     isPaymentModalOpen.value = false;
     isReceiptVisible.value = true;
+    await saveReceiptToDatabase();
 };
 
 const closeReceipt = () => {
@@ -119,6 +157,21 @@ const closeReceipt = () => {
 
 const printReceipt = () => {
     window.print();
+};
+
+const saveReceiptToDatabase = async () => {
+    const newOrderRef = push(dbRef(database, 'orders'));
+    await set(newOrderRef, {
+        items: cartItems.value,
+        totalPrice: calculateTotalPrice(),
+        timestamp: Date.now(),
+        status: 'Belum Disajikan'
+    });
+};
+
+const updateOrderStatus = async (orderId, status) => {
+    const orderRef = dbRef(database, `orders/${orderId}`);
+    await update(orderRef, { status });
 };
 
 const increaseQuantity = (item) => {
